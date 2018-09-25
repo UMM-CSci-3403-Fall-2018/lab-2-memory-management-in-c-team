@@ -4,9 +4,8 @@
 
 #include "disemvowel.h"
 
-bool* isVowel(char *str){
-  if(str[0] == 'a' || str[0] == 'e' || str[0] == 'i' || str[0] == 'o' || str[0] == 'u'
-		  || str[0] == 'A' || str[0] == 'E'|| str[0] == 'I'|| str[0] == 'O'|| str[0] == 'U'){
+bool* isVowel(char lttr){
+  if(lttr == 'a' || lttr == 'e' || lttr == 'i' || lttr == 'o' || lttr == 'u' || lttr == 'A' || lttr == 'E'|| lttr == 'I'|| lttr == 'O'|| lttr == 'U'){
     return (bool*)true;
   } else {
     return (bool*)false;
@@ -15,17 +14,20 @@ bool* isVowel(char *str){
 
 char *disemvowel(char *str) {
   int size;
-  int vowels, i;
+  int vowels, i, j;
   char *result;
 
   size = strlen(str);
 
   vowels = 0;
   for(i=0; i<size; i++) {
-    if(str[0] == 'a' || str[0] == 'e' || str[0] == 'i' || str[0] == 'o' || str[0] == 'u'
-                  || str[0] == 'A' || str[0] == 'E'|| str[0] == 'I'|| str[0] == 'O'|| str[0] == 'U'){
+    if(isVowel(str[i])){
       ++vowels;
     }
+  }
+  
+  if(vowels == 0){
+    return str;
   }
 
   if(vowels >= size){
@@ -34,12 +36,14 @@ char *disemvowel(char *str) {
 
   result = (char*) calloc(size-vowels+1, sizeof(char));
 
+  j=0;
   for(i=0; i<size; i++) {
-    if(str[0] == 'a' || str[0] == 'e' || str[0] == 'i' || str[0] == 'o' || str[0] == 'u'
-                  || str[0] == 'A' || str[0] == 'E'|| str[0] == 'I'|| str[0] == 'O'|| str[0] == 'U'){
-      result[i]=str[i+vowels];
+    if(!isVowel(str[i])){
+      result[j]=str[i];
+      ++j;
     }
   }
+  result[j+1]='\0';
 
   return result;
 }
