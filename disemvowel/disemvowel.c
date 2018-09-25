@@ -43,7 +43,7 @@ char *disemvowel(char *str) {
       ++j;
     }
   }
-  result[j+1]='\0';
+  result[j]='\0';
 
   return result;
 }
